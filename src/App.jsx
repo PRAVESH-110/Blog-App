@@ -23,7 +23,7 @@ function App() {
     .finally(()=>setLoading(false))  //finally is used to run a function after the promise is resolved or rejected, it makes sure that the loading state is set to false after the promise is resolved or rejected
   },[])
 
-  return ! loading ? (
+  return (
     <div className='min-h-screen flex flex-wrap content-between bg-gray-400'>
       <div className='w-full block'></div> 
       <Header/>
@@ -33,7 +33,7 @@ function App() {
       <Footer/>
     </div>
     
-  ) : null
+  ) 
 }
 
 export default App
