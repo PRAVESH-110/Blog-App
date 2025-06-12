@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import authService from '../appwrite/auth'
 import {Link ,useNavigate} from 'react-router-dom'
-import {login} from '../store/authslice'
+import {login as authLogin} from '../store/authslice'
 import {Button, Input, Logo} from './index.js'
 import {useDispatch} from 'react-redux'
 import {useForm} from 'react-hook-form'
@@ -22,7 +22,7 @@ const create = async(data) => {
 
             if (userData) {
                 const userData = await authService.getCurrentUser()
-                if(userData) dispatch(login(userData));
+                if(userData) dispatch(authLogin(userData));
                 navigate("/")
             }
         } catch (error) {

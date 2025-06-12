@@ -6,21 +6,21 @@ function Select({
     className,
     ...props
 }, ref) {
+    const id = useId()
     return(
         <div className="w-full">
-            {label && <label htmlFor={id} className=''></label>}
+            {label && <label htmlFor={id} className='inline-block mb-1 pl-1'>{label}</label>}
             <select
                 {...props}
                 id={id}
                 ref={ref}
-                className={` px-3 rounded-lg bg-white text-black focus:bg-gray-50 border-gray-200 w-full ${className}`}  //these are given inside {} so they are not string literals (because its not pure js)
+                className={`px-3 py-2 rounded-lg bg-white text-black focus:bg-gray-50 border-gray-200 w-full ${className}`}
                 >
-                    {options?.map((option)=>(  //the use of ? is to prevent null pointer exception meaning if options is null then it will not throw error
+                    {options?.map((option)=>(
                         <option key={option} value={option}>
-                            {options}
+                            {option}
                         </option>
-                    )
-                )}
+                    ))}
             </select>
         </div>
     )

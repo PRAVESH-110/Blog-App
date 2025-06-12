@@ -2,20 +2,20 @@ import conf from '../conf/conf.js';
 import { Client, ID, Databases,Storage,Query } from "appwrite";
 
 export class Service{
-    Client=new Client();
+    client = new Client();
     databases;
     bucket;
 
     constructor(){
-        this.Client
+        this.client
         .setEndpoint(conf.appwriteUrl)
         .setProject(conf.appwriteProjectId);
 
         console.log("Appwrite Endpoint:", conf.appwriteUrl);
         console.log("Appwrite Project ID:", conf.appwriteProjectId);
 
-        this.databases = new Databases (this.Client);
-        this.bucket = new Storage (this.Client);
+        this.databases = new Databases (this.client);
+        this.bucket = new Storage (this.client);
 
     }
 
@@ -23,6 +23,10 @@ export class Service{
 
     async createPost({title, slug, content, featuredImage, status, userId}){
         try{
+            if (!title || !slug || !content || !featuredImage || !status || !userId) {
+                throw new Error("All fields are required");
+            }
+
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
@@ -39,7 +43,8 @@ export class Service{
             )
         }
         catch(error){
-            console.log("Appwrite service :: createPost :: error", error);
+            console.error("Appwrite service :: createPost :: error", error);
+            throw error;
         }
     }
 
@@ -112,6 +117,10 @@ export class Service{
 
     async uploadFile(file){
         try{
+            if (!file) {
+                throw new Error("No file provided");
+            }
+
             return await this.bucket.createFile(
                 conf.appwriteBucketId,
                 ID.unique(),
@@ -119,8 +128,8 @@ export class Service{
             )
         }
         catch(error){
-            console.log("Appwrite service :: uploadFile :: error", error);
-             return false;
+            console.error("Appwrite service :: uploadFile :: error", error);
+            throw error;
         }
     }
 
@@ -139,10 +148,20 @@ export class Service{
     }
 
     getFilePreview(fileId){
-        return this.bucket.getFilePreview(
-            conf.appwriteBucketId,
-            fileId
-        )
+        try {
+            if (!fileId) {
+                console.error("No fileId provided for preview");
+                return null;
+            }
+            // Use getFileView for direct file access (no transformations)
+            return this.bucket.getFileView(
+                conf.appwriteBucketId,
+                fileId
+            );
+        } catch (error) {
+            console.error("Error getting file view:", error);
+            return null;
+        }
     }
 }
 

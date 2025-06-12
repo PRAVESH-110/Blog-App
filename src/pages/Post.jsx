@@ -17,8 +17,11 @@ export default function Post() {
     useEffect(() => {
         if (slug) {
             appwriteService.getPost(slug).then((post) => {
-                if (post) setPost(post);
-                else navigate("/");
+                if (post) {
+                    setPost(post);
+                    console.log('featuredImage:', post.featuredImage);
+                    console.log('previewURL:', appwriteService.getFilePreview(post.featuredImage));
+                } else navigate("/");
             });
         } else navigate("/");
     }, [slug, navigate]);
@@ -33,35 +36,37 @@ export default function Post() {
     };
 
     return post ? (
-        <div className="py-8">
-            <Container>
-                <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
-                    <img
-                        src={appwriteService.getFilePreview(post.featuredImage)}
-                        alt={post.title}
-                        className="rounded-xl"
-                    />
-
-                    {isAuthor && (
-                        <div className="absolute right-6 top-6">
-                            <Link to={`/edit-post/${post.$id}`}>
-                                <Button bgColor="bg-green-500" className="mr-3">
-                                    Edit
-                                </Button>
-                            </Link>
-                            <Button bgColor="bg-red-500" onClick={deletePost}>
-                                Delete
-                            </Button>
-                        </div>
+        <div className="py-12 flex justify-center bg-gray-100 min-h-screen">
+            <div className="bg-white rounded-xl shadow-lg p-8 max-w-2xl w-full">
+                <div className="flex flex-col items-center mb-6">
+                    {post.featuredImage && (
+                        <img
+                            src={appwriteService.getFilePreview(post.featuredImage)}
+                            alt={post.title}
+                            className="rounded-xl w-full max-h-96 object-cover mb-4"
+                        />
                     )}
-                </div>
-                <div className="w-full mb-6">
-                    <h1 className="text-2xl font-bold">{post.title}</h1>
-                </div>
-                <div className="browser-css">
-                    {parse(post.content)}
+                    <h1 className="text-3xl font-bold mb-2 text-center">{post.title}</h1>
+                    <div className="text-gray-500 mb-4 text-center">
+                        {/* Optionally add author/date here */}
                     </div>
-            </Container>
+                    <div className="w-full prose prose-lg">
+                        {parse(post.content)}
+                    </div>
+                </div>
+                {isAuthor && (
+                    <div className="flex justify-end gap-4 mt-6">
+                        <Link to={`/edit-post/${post.$id}`}>
+                            <Button bgColor="bg-green-500" className="mr-3">
+                                Edit
+                            </Button>
+                        </Link>
+                        <Button bgColor="bg-red-500" onClick={deletePost}>
+                            Delete
+                        </Button>
+                    </div>
+                )}
+            </div>
         </div>
     ) : null;
 }
