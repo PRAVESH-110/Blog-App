@@ -5,8 +5,7 @@ const LandingPage = () => (
   <div className="landing-container" style={{ backgroundColor: '#0a192f', minHeight: '100vh', color: '#ccd6f6' }}>
     <header className="landing-hero">
       <h1 style={{ color: "white" }}>Blogger</h1>
-      <p className="landing-subtitle">Share your stories. Connect with the world.</p>
-      <a href="/signup" className="cta-btn" style={{ color: "black" }}>Get Started</a>
+      <p >Share your stories. Connect with the world.</p>
     </header>
     <section className="features-section">
       <h2 style={{ color: "white" }}>Features</h2>
