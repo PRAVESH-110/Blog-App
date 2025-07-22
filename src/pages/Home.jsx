@@ -17,12 +17,12 @@ function Home() {
   
     if (!authStatus) {
         return (
-            <div className="w-full py-8 mt-4 text-center">
+            <div className="w-full py-8 mt-4 text-center" style={{ background: '#0a192f', color: '#ccd6f6', fontFamily: "'Calibre', 'Inter', 'San Francisco', 'SF Pro Text', -apple-system, system-ui, sans-serif" }}>
                 <Container>
                     <div className="flex flex-wrap">
                         <div className="p-2 w-full h-100">
-                            <h1 className="text-2xl font-bold hover:text-gray-500">
-                                Login to read posts
+                            <h1 className="text-3xl font-bold hover:text-[#64ffda]" style={{ color: '#64ffda' }}>
+                                Login/ Signup to read posts
                             </h1>
                         </div>
                     </div>
@@ -33,11 +33,11 @@ function Home() {
 
     if (posts.length === 0) {
         return (
-            <div className="w-full py-8 mt-4 text-center">
+            <div className="w-full py-8 mt-4 text-center" style={{ background: '#0a192f', color: '#ccd6f6', fontFamily: "'Calibre', 'Inter', 'San Francisco', 'SF Pro Text', -apple-system, system-ui, sans-serif" }}>
                 <Container>
                     <div className="flex flex-wrap">
                         <div className="p-2 w-full h-100">
-                            <h1 className="text-2xl font-bold hover:text-gray-500">
+                            <h1 className="text-2xl font-bold hover:text-[#64ffda]">
                                 No posts to show
                             </h1>
                         </div>
@@ -48,7 +48,7 @@ function Home() {
     }
 
     return (
-        <div className='w-full py-8'>
+        <div className='w-full py-8' style={{ background: '#0a192f', color: '#ccd6f6', fontFamily: "'Calibre', 'Inter', 'San Francisco', 'SF Pro Text', -apple-system, system-ui, sans-serif" }}>
             <Container>
                 <div className='flex flex-wrap'>
                     {posts.map((post) => (

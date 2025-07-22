@@ -15,6 +15,7 @@ import AddPost from "./pages/AddPost"
 import EditPost from "./pages/EditPost"
 import Post from "./pages/Post"
 import AllPosts from "./pages/AllPosts"
+import PublicHome from './pages/PublicHome';
 
 //creating a router
 const router = createBrowserRouter([
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
     children: [
         {
             path: "/",
-            element: <Home />,
+            element: <PublicHome />, // Use PublicHome instead of Home
         },
         {
             path: "/login",

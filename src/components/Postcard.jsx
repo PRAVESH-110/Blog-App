@@ -21,7 +21,7 @@ function PostCard({$id, title, featuredImage}){
 
     return (
         <Link to={`/post/${$id}`} className="block">
-            <div className='w-full bg-white rounded-xl p-4 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200'>
+            <div className='w-full rounded-xl p-4 shadow-md hover:shadow-lg transition-all duration-300 border' style={{ background: '#112240', color: '#ccd6f6', borderColor: '#233554' }}>
                 <div className='w-full h-48 mb-4 overflow-hidden rounded-xl'>
                     {imageUrl && !imageError ? (
                         <img 
@@ -31,13 +31,13 @@ function PostCard({$id, title, featuredImage}){
                             onError={() => setImageError(true)}
                         />
                     ) : (
-                        <div className='w-full h-full bg-gray-200 flex items-center justify-center'>
-                            <span className='text-gray-500'>No image available</span>
+                        <div className='w-full h-full bg-[#233554] flex items-center justify-center'>
+                            <span className='text-[#8892b0]'>No image available</span>
                         </div>
                     )}
                 </div>
                 <div className='p-2'>
-                    <h2 className='text-xl font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-300'>
+                    <h2 className='text-xl font-semibold transition-colors duration-300' style={{ color: '#ccd6f6' }}>
                         {title}
                     </h2>
                 </div>
